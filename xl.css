@@ -1,0 +1,639 @@
+/*@import url(https://fonts.googleapis.com/css?family=PT+Serif:400,700|Roboto:300,500);*/
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro:400|Roboto:300,500');
+
+@font-face {
+  font-family: 'ionicons';
+  src: url('file:///E:/Harvest/ionicons-1.4.0/ionicons-1.4.0/fonts/ionicons.woff') format('woff');
+}
+
+@-moz-document domain('boards.4chan.org') {
+
+*, :before, :after {
+  padding: 0 !important;
+  margin: 0 !important;
+  vertical-align: baseline !important;
+  -moz-box-sizing: border-box;
+}
+
+html {
+  font-family: source sans pro;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #3d3d3d;
+  text-rendering: optimizeLegibility;
+  background-color: #fefefe;
+  overflow-y: scroll;
+}
+
+html, body {
+  position: relative;
+}
+
+:focus {
+  outline: 0 !important;
+}
+
+a {
+  color: cornflowerblue !important;
+  text-decoration: none !important;
+}
+
+.subject,
+.name {
+  font-weight: 700;
+}
+
+blockquote {
+  margin: .5rem 0 0 .5rem !important;
+}
+
+s {
+  color: #3d3d3d;
+  background-color: #3d3d3d;
+  transition: color .25s;
+}
+
+s:hover {
+  color: #fefefe;
+}
+
+.mobile, #boardNavDesktop, #postForm, .boardSubtitle, hr, #qr, #thread-watcher, .pagelist, #boardNavDesktopFoot, #absbot, .bottomCtrl, .postInfo > input[type=checkbox], .postingMode, #thread-stats, .page-num, body:not(.is_index) .navLinks { display: none; }
+
+.boardBanner {
+  font-family: roboto, sans-serif;
+  font-size: 6rem;
+  font-weight: 500;
+  line-height: 1;
+  color: #fefefe;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(0,0,0,.5);
+  padding: 200px 0 !important;
+  box-shadow: inset 0 0 300px rgba(0,0,0,1);
+  -moz-user-select: none;
+  cursor: default;
+  text-transform: lowercase;
+  position: relative;
+  overflow: hidden;
+}
+
+.boardBanner::after {
+  content: '';
+  position: absolute;
+  top: -2rem;
+  right: -2rem;
+  bottom: -2rem;
+  left: -2rem;
+  background-size: cover;
+  background-position: center center;
+  z-index: -1;
+  /*-webkit-filter: blur(10);*/ /* FIREFOX SUPPORT, FUCKING WHEN? */
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'blur\'><feGaussianBlur stdDeviation=\'10\'/></filter></svg>#blur");
+  /* This has lag when scrolling past the banner. */
+}
+
+.board_g .boardBanner::after {
+  background-image: url('file:///E:/Harvest/gee.jpg');
+}
+
+.board_fa .boardBanner::after {
+  background-image: url('file:///E:/2013/Images/Fashion/Puma%20Mihara%20MY-71%20Shoes.jpg');
+}
+
+.board_fit .boardBanner::after {
+  background-image: url('file:///E:/2013/Images/Fitness/Bodies/1383345019056.jpg');
+}
+
+.board_pol .boardBanner::after {
+  background-image: url('file:///E:/2013/Images/Jew/1381521158903.jpg');
+}
+
+.board_v .boardBanner::after {
+  background-image: url('file:///E:/Pictures/2012%20Images/ISHYGDDT/1325371980670.jpg');
+}
+
+@media (max-width: 960px) {
+  .boardBanner {
+    font-size: 3rem;
+    padding: 75px 0 !important;
+    box-shadow: inset 0 0 150px rgba(0,0,0,1);
+  }
+}
+
+code,
+kbd,
+pre,
+.postertrip {
+  font-family: source code pro, inconsolata, monospace;
+  font-size: 1em;
+}
+
+pre {
+  font-size: .75rem;
+  color: #4d4d4c;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: .25rem !important;
+  border-radius: 5px;
+  margin: 0 !important;
+  max-width: 100%;
+  display: inline-block;
+  white-space: pre-wrap;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.prettyprint .str { color: #718c00 }
+.prettyprint .kwd { color: #8959a8 }
+.prettyprint .com { color: #8e908c }
+.prettyprint .typ,
+.prettyprint .fun { color: #4271ae }
+.prettyprint .lit,
+.prettyprint .atn,
+.prettyprint .dec { color: #f5871f }
+.prettyprint .tag,
+.prettyprint .var { color: #c82829 }
+.prettyprint .atv { color: #3e999f }
+
+.navLinks {
+  font-size: 0;
+  color: transparent;
+  line-height: 1;
+  width: 100%;
+  height: 2rem;
+  background-color: #3d3d3d;
+  text-align: center;
+}
+
+#index-last-refresh {
+  font-size: .75rem;
+  color: #e3e3e3;
+  position: relative;
+  display: block;
+  margin-top: .6rem !important;
+}
+
+#index-search {
+  display: block;
+  -moz-appearance: none;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1;
+  background: #fefefe;
+  border: 1px solid #ababab;
+  padding: .5rem !important;
+  color: #3d3d3d;
+  width: 12.5rem;
+  margin: -5rem auto 0 !important;
+  position: relative;
+  border-radius: 3px;
+  right: 100px;
+}
+
+#index-search::-moz-placeholder {
+  color: #ababab;
+}
+
+#index-search-clear::after {
+  content: 'Reply Count';
+  font-size: 1rem;
+  color: #fefefe;
+  background-color: #3d3d3d;
+  display: block;
+  width: 10rem;
+  border-radius: 3px;
+  position: relative;
+  text-align: left;
+  padding: .75rem 0 .75rem .75rem !important;
+  margin: -2.5rem auto 0 !important;
+  left: 100px;
+}
+
+#delform {
+  margin: 3rem 0 !important;
+}
+
+.board {
+  width: 75%;
+  margin: 0 auto !important;
+}
+
+.postContainer {
+  padding: 1rem !important;
+  /*border-top: 1px solid #e3e3e3;*/
+  position: relative;
+}
+
+#header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(61, 61, 61, 0);
+  transition: all .25s ease-in-out;
+  z-index: 50;
+}
+
+#header:hover {
+  background-color: rgba(61, 61, 61, .25);
+}
+
+.bannered:root #header {
+  position: fixed;
+  background-color: rgba(61, 61, 61, 1);
+  /*border-bottom: .5rem solid #fefefe;*/
+}
+
+.scrolling-down:root #header {
+  transform: translateY(-100%);
+}
+
+.scrolling-down:root #header:hover {
+  transform: translateY(0);
+}
+
+.scrolling-up.unbannered:root #header {
+  transform: translateY(0);
+}
+
+#board-list {
+  font-family: roboto, sans-serif;
+  font-weight: 300;
+  display: block;
+  width: 75%;
+  margin: auto !important;
+  line-height: 1;
+}
+
+#custom-board-list {
+  display: block;
+}
+
+#custom-board-list::after,
+.thread::after,
+.postContainer::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+#board-list a {
+  color: #fefefe !important;
+  display: block;
+  float: left;
+  padding: 1rem !important;
+  min-width: 3rem;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(0,0,0,.5);
+  transition: background-color .25s;
+}
+
+#board-list a:hover {
+  background-color: rgba(0, 0, 0, .25);
+}
+
+.postNum > a:first-child {
+  font-size: 0;
+  color: transparent;
+}
+
+.postNum > a:first-child::before {
+  content: '#';
+  font-size: 1rem;
+}
+
+.dateTime,
+.file {
+  color: #999;
+}
+
+.file {
+  font-size: .75rem;
+}
+
+.fileThumb {
+  float: left;
+  margin: .5rem !important;
+}
+
+.quote {
+  color: #5f9654;
+}
+
+.view-thread {
+  display: inline-block;
+  background-color: #3498db;
+  color: #fefefe !important;
+  line-height: 1;
+  padding: .5rem .75rem !important;
+  vertical-align: middle !important;
+  border-radius: 3px;
+  box-shadow: 0 3px 0 #2980b9;
+  transition: background .1s;
+  text-shadow: 0 1px 1px rgba(0,0,0,.5);
+}
+
+.view-thread:hover {
+  background-color: #1baae3;
+}
+
+.view-thread:active {
+  padding-top: calc( .5rem + 1px ) !important;
+  margin-bottom: -1px !important;
+  box-shadow: 0 1px 0 #2980b9;
+}
+
+.expanded-image > .post > .file > .fileThumb > img[data-md5],
+.postContainer:not(.expanded-image) > .post > .file > .fileThumb > .full-image {
+  display: none;
+}
+
+.expanding {
+  opacity: .5;
+}
+
+.expanded-image {
+  clear: both;
+}
+
+.fit-height:root .full-image {
+  max-height: 100vh;
+}
+
+.fit-width:root .full-image {
+  max-width: 100%;
+}
+
+.gecko.fit-width:root .full-image {
+  width: 100%;
+}
+
+/*
+  Honestly, when was the last time you actually hid a thread, let alone a reply?
+  If you need to hide a thread or reply, just use the menu.
+*/
+
+.hide-thread-button,
+.hide-reply-button {
+  display: none;
+}
+
+.postContainer > .post > .postInfo > .menu-button {
+  font-size: 0;
+  color: transparent !important;
+  display: block;
+  height: 1rem;
+  width: 1rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  opacity: 0;
+  transition: opacity .25s;
+}
+
+.postContainer > .post > .postInfo > .menu-button::before {
+  content: '\f20e';
+  font-family: ionicons;
+  font-size: 1rem;
+  display: block;
+  color: #3d3d3d;
+}
+
+.postContainer:hover > .post > .postInfo > .menu-button {
+  opacity: 1;
+}
+
+#menu {
+  font-size: .75rem;
+  color: #3d3d3d;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+}
+
+#menu.top {
+  top: 100%;
+}
+
+#menu.bottom {
+  bottom: 100%;
+}
+
+#menu.left {
+  left: 0;
+}
+
+#menu.right {
+  right: 0;
+}
+
+.entry {
+  background-color: #fafafa;
+  cursor: pointer;
+  padding: .25rem .5rem;
+  position: relative;
+  white-space: nowrap;
+}
+
+.entry:hover {
+  background-color: #f2f2f2;
+}
+
+.entry.disabled {
+  color: #999;
+}
+
+.has-submenu:after {
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid;
+  border-top: 4px solid transparent;
+  content: '';
+  display: inline-block;
+  margin: 4px;
+  position: absolute;
+  right: 3px;
+}
+
+.has-submenu:not(.focused) > .submenu {
+  display: none;
+}
+
+.submenu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+}
+
+.submenu.top {
+  top: 0;
+}
+
+.submenu.bottom {
+  bottom: 0;
+}
+
+.submenu.left {
+  left: 100%;
+}
+
+.submenu.right {
+  right: 100%;
+}
+
+.entry input {
+  margin: 0;
+}
+
+/* THIS HAS POTENTIAL, AW SHIT */
+#sidebar-toggle {
+  cursor: pointer;
+  position: absolute;
+  height: 3rem;
+  width: 3rem;
+  top: 0;
+  margin-left: -3rem !important;
+  transition: background-color .25s;
+  line-height: 1;
+  text-align: center;
+}
+
+#sidebar-toggle:hover {
+  background-color: rgba(0, 0, 0, .25);
+}
+
+#sidebar-toggle::before {
+  content: '\f20e';
+  font-family: ionicons;
+  font-size: 3rem;
+  display: block;
+  color: #fefefe;
+  text-shadow: 0 1px 1px rgba(0,0,0,.5);
+}
+/*
+#sidebar-toggle::before {
+  content: '';
+  display: block;
+  height: 1.5rem;
+  width: 1.5rem;
+  background-image: linear-gradient(to bottom, transparent 0%, transparent 25%, #fefefe 25%, #fefefe 35%, transparent 35%, transparent 50%, #fefefe 50%, #fefefe 60%, transparent 60%, transparent 75%, #fefefe 75%, #fefefe 85%, transparent 85%, transparent 100%);
+  position: relative;
+  top: .75rem;
+  left: .75rem;
+}
+*/
+/*
+#sidebar-toggle {
+  cursor: pointer;
+  z-index: 10;
+}
+
+#sidebar-toggle::before {
+  content: '';
+  display: block;
+  position: fixed;
+  height: 1.5rem;
+  width: 1.5rem;
+  top: .75rem;
+  right: 13.5%;
+  background-image: linear-gradient(to bottom, transparent 0%, transparent 25%, #fefefe 25%, #fefefe 35%, transparent 35%, transparent 50%, #fefefe 50%, #fefefe 60%, transparent 60%, transparent 75%, #fefefe 75%, #fefefe 85%, transparent 85%, transparent 100%);
+  z-index: 10;
+}
+
+#sidebar-toggle::after {
+  content: '';
+  display: block;
+  position: fixed;
+  height: 3rem;
+  width: 3.25rem;
+  opacity: 0;
+  background: #000;
+  top: 0;
+  right: 12.5%;
+  transition: opacity .25s;
+}
+
+#sidebar-toggle:hover::after {
+  opacity: .25;
+}
+*/
+#updater > div:not(.move) { display: none; }
+
+#updater {
+  position: fixed;
+  top: 1rem !important;
+  right: 16% !important;
+  bottom: auto !important;
+  left: auto !important;
+  z-index: 40;
+  font-family: roboto;
+  font-weight: 300;
+  color: #fefefe;
+  line-height: 1;
+}
+
+#updater .new {
+  color: lime;
+}
+
+#update-timer {
+  display: block;
+  float: right;
+  width: 1.5rem;
+  text-align: right;
+}
+
+.forwardlink {
+/*
+  text-decoration: underline !important;
+  -moz-text-decoration-style: dashed !important;
+*/
+  border-bottom: 1px dashed;
+}
+
+.backlink {
+  font-size: 0;
+  color: transparent;
+}
+
+.backlink::before {
+  content: '\f11e';
+  font-family: ionicons;
+  font-size: 1rem;
+  color: #3d3d3d;
+  display: inline-block;
+}
+
+.deadlink {
+  text-decoration: line-through !important;
+}
+
+.inlined {
+  opacity: .75;
+}
+
+.thread .stub ~ * {
+  display: none;
+}
+
+.stub {
+  position: relative;
+}
+
+.stub > a:first-child {
+  color: #3d3d3d !important;
+}
+
+.stub .menu-button {
+  position: absolute;
+}
+
+.inline {
+  box-shadow: inset 1px 0 0 #e3e3e3;
+}
+
+#qp {
+  position: fixed;
+  background-color: rgba(254, 254, 254, .8);
+  border: 1px solid rgba(227, 227, 227, .8);
+}
+
+}
