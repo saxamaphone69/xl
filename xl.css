@@ -1,4 +1,3 @@
-/*@import url(https://fonts.googleapis.com/css?family=PT+Serif:400,700|Roboto:300,500);*/
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro:400|Roboto:300,500');
 
 @font-face {
@@ -8,11 +7,41 @@
 
 @-moz-document domain('boards.4chan.org') {
 
-*, :before, :after {
-  padding: 0 !important;
-  margin: 0 !important;
-  vertical-align: baseline !important;
+.mobile,
+#boardNavDesktop,
+#postForm,
+.boardSubtitle,
+hr,
+#thread-watcher,
+.pagelist,
+#boardNavDesktopFoot,
+#absbot,
+.bottomCtrl,
+.postInfo > input[type=checkbox],
+.postingMode,
+#thread-stats,
+.page-num,
+body:not(.is_index) .navLinks {
+  display: none;
+}
+
+*,
+::before,
+::after {
   -moz-box-sizing: border-box;
+       box-sizing: border-box;
+}
+
+::-moz-selection {
+  background: #b3d4fc;
+}
+
+::selection {
+  background: #b3d4fc;
+}
+
+:focus {
+  outline: 0 !important;
 }
 
 html {
@@ -27,19 +56,23 @@ html {
 
 html, body {
   position: relative;
+  min-height: 100%;
 }
 
-:focus {
-  outline: 0 !important;
+body {
+  margin: 0;
 }
 
 a {
-  color: cornflowerblue !important;
+  color: #3498db !important;
   text-decoration: none !important;
 }
 
+b,
+strong,
+.name,
 .subject,
-.name {
+.current {
   font-weight: 700;
 }
 
@@ -57,7 +90,78 @@ s:hover {
   color: #fefefe;
 }
 
-.mobile, #boardNavDesktop, #postForm, .boardSubtitle, hr, #qr, #thread-watcher, .pagelist, #boardNavDesktopFoot, #absbot, .bottomCtrl, .postInfo > input[type=checkbox], .postingMode, #thread-stats, .page-num, body:not(.is_index) .navLinks { display: none; }
+code,
+kbd,
+pre,
+.postertrip {
+  font-family: source code pro, inconsolata, monospace;
+  font-size: 1em;
+}
+
+pre {
+  font-size: .75rem;
+  color: #4d4d4c;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: .25rem !important;
+  border-radius: 5px;
+  margin: 0 !important;
+  max-width: 100%;
+  display: inline-block;
+  white-space: pre-wrap;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.prettyprint .str { color: #718c00 }
+.prettyprint .kwd { color: #8959a8 }
+.prettyprint .com { color: #8e908c }
+.prettyprint .typ,
+.prettyprint .fun { color: #4271ae }
+.prettyprint .lit,
+.prettyprint .atn,
+.prettyprint .dec { color: #f5871f }
+.prettyprint .tag,
+.prettyprint .var { color: #c82829 }
+.prettyprint .atv { color: #3e999f }
+
+img {
+  vertical-align: middle;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit !important;
+  font-size: 100% !important;
+  font-weight: inherit !important;
+  color: inherit !important;
+  line-height: inherit !important;
+  margin: 0;
+}
+
+button,
+html input[type=button],
+html input[type=submit] {
+  cursor: pointer;
+}
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+textarea {
+  vertical-align: top;
+  resize: vertical;
+}
 
 .boardBanner {
   font-family: roboto, sans-serif;
@@ -67,7 +171,7 @@ s:hover {
   color: #fefefe;
   text-align: center;
   text-shadow: 0 1px 1px rgba(0,0,0,.5);
-  padding: 200px 0 !important;
+  padding: 200px 0;
   box-shadow: inset 0 0 300px rgba(0,0,0,1);
   -moz-user-select: none;
   cursor: default;
@@ -114,46 +218,12 @@ s:hover {
 @media (max-width: 960px) {
   .boardBanner {
     font-size: 3rem;
-    padding: 75px 0 !important;
+    padding: 75px 0;
     box-shadow: inset 0 0 150px rgba(0,0,0,1);
   }
 }
 
-code,
-kbd,
-pre,
-.postertrip {
-  font-family: source code pro, inconsolata, monospace;
-  font-size: 1em;
-}
-
-pre {
-  font-size: .75rem;
-  color: #4d4d4c;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  padding: .25rem !important;
-  border-radius: 5px;
-  margin: 0 !important;
-  max-width: 100%;
-  display: inline-block;
-  white-space: pre-wrap;
-  word-break: break-all;
-  word-wrap: break-word;
-}
-
-.prettyprint .str { color: #718c00 }
-.prettyprint .kwd { color: #8959a8 }
-.prettyprint .com { color: #8e908c }
-.prettyprint .typ,
-.prettyprint .fun { color: #4271ae }
-.prettyprint .lit,
-.prettyprint .atn,
-.prettyprint .dec { color: #f5871f }
-.prettyprint .tag,
-.prettyprint .var { color: #c82829 }
-.prettyprint .atv { color: #3e999f }
-
+/*
 .navLinks {
   font-size: 0;
   color: transparent;
@@ -207,20 +277,66 @@ pre {
   margin: -2.5rem auto 0 !important;
   left: 100px;
 }
+*/
 
+.navLinks { display: none; }
+
+#custom-board-list::after,
+.board::after,
+.thread::after,
+.postContainer::after,
+.post::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.board,
+.thread,
+.postContainer {
+  position: relative;
+}
+
+/*
 #delform {
-  margin: 3rem 0 !important;
+  margin: 3rem 0;
 }
 
 .board {
   width: 75%;
-  margin: 0 auto !important;
+  margin: 0 auto;
+}
+
+.thread:not(:first-of-type)::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background-image: linear-gradient(to left, rgba(227, 227, 227, 0), rgba(227, 227, 227, 1), rgba(227, 227, 227, 0));
+  width: 90%;
+  margin: 1rem auto;
 }
 
 .postContainer {
   padding: 1rem !important;
-  /*border-top: 1px solid #e3e3e3;*/
   position: relative;
+}
+*/
+
+.thread {
+  padding: 2rem 0;
+}
+
+.thread:nth-of-type(even) {
+  background-color: #fafafa;
+}
+
+.thread .postContainer, .thread > .stub {
+  width: 75%;
+  margin: auto;
+}
+
+.post {
+  padding: 1rem;
 }
 
 #header {
@@ -268,14 +384,6 @@ pre {
   display: block;
 }
 
-#custom-board-list::after,
-.thread::after,
-.postContainer::after {
-  content: '';
-  display: table;
-  clear: both;
-}
-
 #board-list a {
   color: #fefefe !important;
   display: block;
@@ -287,7 +395,8 @@ pre {
   transition: background-color .25s;
 }
 
-#board-list a:hover {
+#board-list a:hover,
+#board-list .current {
   background-color: rgba(0, 0, 0, .25);
 }
 
@@ -635,5 +744,49 @@ pre {
   background-color: rgba(254, 254, 254, .8);
   border: 1px solid rgba(227, 227, 227, .8);
 }
+
+.summary.sidedished {
+  display: block;
+  color: #3d3d3d !important;
+  font-weight: 700;
+  line-height: 50px;
+  max-width: 25%;
+  text-align: center;
+  border: 5px solid #3d3d3d;
+  margin: auto !important;
+  transition: color .25s, background-color .25s;
+}
+
+.summary.sidedished:hover {
+  color: #fefefe !important;
+  background-color: #3d3d3d;
+}
+/*
+#sidebar {
+  position: fixed;
+  width: 30rem;
+  background-color: #3d3d3d;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.sidebar-inactive:root #sidebar {
+  transform: translateY(-100%);
+}
+
+.sidebar-active:root #sidebar {
+  transform: translateY(0);
+}
+*/
+#qr {
+  position: fixed;
+  top: auto !important;
+  right: 1rem !important;
+  bottom: 1rem !important;
+  left: auto !important;
+}
+
+#qr > div:first-child { display: none; }
 
 }
