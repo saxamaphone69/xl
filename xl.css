@@ -1,25 +1,23 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro:400|Roboto:300,500');
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro:400|Roboto:300,500);
 
 @font-face {
   font-family: 'ionicons';
   src: url('file:///E:/Harvest/ionicons-1.4.0/ionicons-1.4.0/fonts/ionicons.woff') format('woff');
 }
 
-@-moz-document domain('boards.4chan.org') {
+@-moz-document domain(boards.4chan.org) {
 
 .mobile,
 #boardNavDesktop,
 #postForm,
 .boardSubtitle,
-hr,
-#thread-watcher,
+hr:not(#unread-line),
 .pagelist,
 #boardNavDesktopFoot,
 #absbot,
 .bottomCtrl,
 .postInfo > input[type=checkbox],
 .postingMode,
-#thread-stats,
 .page-num,
 body:not(.is_index) .navLinks {
   display: none;
@@ -32,25 +30,23 @@ body:not(.is_index) .navLinks {
        box-sizing: border-box;
 }
 
-::-moz-selection {
-  background: #b3d4fc;
-}
-
-::selection {
-  background: #b3d4fc;
-}
-
 :focus {
   outline: 0 !important;
+}
+
+:root {
+  var-basicwhite: #fefefe;
+  var-basicblack: #3d3d3d;
+  var-basicblue: #3498db;
 }
 
 html {
   font-family: source sans pro;
   font-size: 1rem;
   line-height: 1.6;
-  color: #3d3d3d;
+  color: var(basicblack);
   text-rendering: optimizeLegibility;
-  background-color: #fefefe;
+  background-color: var(basicwhite);
   overflow-y: scroll;
 }
 
@@ -64,30 +60,32 @@ body {
 }
 
 a {
-  color: #3498db !important;
+  color: var(basicblue) !important;
   text-decoration: none !important;
 }
 
-b,
-strong,
 .name,
-.subject,
-.current {
+.subject {
   font-weight: 700;
 }
 
+.current {
+  font-weight: 500;
+}
+
 blockquote {
-  margin: .5rem 0 0 .5rem !important;
+  margin: .5rem 0 0 .5rem;
 }
 
 s {
-  color: #3d3d3d;
-  background-color: #3d3d3d;
+  color: var(basicblack);
+  background-color: var(basicblack);
+  text-decoration: none;
   transition: color .25s;
 }
 
 s:hover {
-  color: #fefefe;
+  color: var(basicwhite);
 }
 
 code,
@@ -163,19 +161,179 @@ textarea {
   resize: vertical;
 }
 
+#header {
+  font-family: roboto, sans-serif;
+  font-weight: 300;
+  line-height: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background-color: rgba(61,61,61,0);
+  -moz-user-select: none;
+       user-select: none;
+  transition: all .25s ease-in-out;
+}
+
+#header:hover {
+  background-color: rgba(61,61,61,.25);
+}
+
+.bannered:root #header {
+  position: fixed;
+  background-color: rgba(61,61,61,1);
+}
+
+#header a {
+  color: var(basicwhite) !important;
+  transition: all .25s;
+  text-shadow: 0 1px 1px rgba(0,0,0,.5);
+}
+
+#header a:hover {
+  background-color: rgba(0,0,0,.25);
+}
+
+#header-bar {
+  position: relative;
+  width: 75%;
+  margin: auto;
+}
+
+/* `#toggle-header-bar` is used to calculate 'scroll to' values. */
+
+#toggle-header-bar {
+  position: absolute;
+  bottom: 0;
+}
+
+#board-list a {
+  text-align: center;
+  display: block;
+  float: left;
+  min-height: 3rem;
+  min-width: 3rem;
+  padding: 1rem;
+}
+
+#shortcuts .fa::before {
+  font-family: ionicons;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(basicwhite);
+  text-rendering: auto;
+  text-align: center;
+  display: block;
+  float: right;
+  min-height: 3rem;
+  min-width: 3rem;
+  padding: 1rem;
+  transition: all .25s;
+}
+
+#shortcuts .fa:hover::before {
+  background-color: rgba(0,0,0,.25);
+}
+
+#shortcuts .fa-bars::before {
+  content: '\f1b4';
+}
+
+#shortcuts .fa-refresh::before {
+  content: '\f28e';
+}
+
+#shortcuts .fa-refresh.fa-spin::before {
+  background: none;
+  transition: none;
+  animation: 1s linear 0s normal none infinite spin;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+#shortcuts .expand-all-shortcut::before {
+  content: '\f160';
+}
+
+#shortcuts .contract-all-shortcut::before {
+  content: '\f160';
+  background-color: rgba(0,0,0,.25);
+}
+
+/*
+  Notifications
+document.dispatchEvent(new CustomEvent('CreateNotification', {
+detail: {
+type: 'success', // info, warning, error
+content: 'hey baby',
+lifetime: 0
+}
+}));
+*/
+
+#notifications {
+  height: 0;
+  text-align: center;
+}
+
+.notification {
+  color: var(basicwhite);
+  text-shadow: 0 1px 1px rgba(0,0,0,.5);
+  width: 50rem;
+  padding: 1rem 0;
+  margin: .25rem auto;
+  position: relative;
+}
+
+.notification.error {
+  background-color: #e74c3c;
+}
+
+.notification.warning {
+  background-color: #f1c40f;
+}
+
+.notification.info {
+  background-color: #3498db;
+}
+
+.notification.success {
+  background-color: #2ecc71;
+}
+
+.notification > .close::before {
+  content: '\f2bd';
+  font-family: ionicons;
+  font-size: 1.5rem;
+  text-rendering: auto;
+  display: block;
+  position: absolute;
+  top: .75rem;
+  right: 1rem;
+}
+
 .boardBanner {
   font-family: roboto, sans-serif;
   font-size: 6rem;
   font-weight: 500;
   line-height: 1;
-  color: #fefefe;
+  color: var(basicwhite);
   text-align: center;
-  text-shadow: 0 1px 1px rgba(0,0,0,.5);
-  padding: 200px 0;
-  box-shadow: inset 0 0 300px rgba(0,0,0,1);
+  text-shadow: 0 1px 1px rgba(61,61,61,.5);
+  box-shadow: inset 0 0 300px #000;
   -moz-user-select: none;
+       user-select: none;
   cursor: default;
   text-transform: lowercase;
+  padding: 200px 0;
   position: relative;
   overflow: hidden;
 }
@@ -190,9 +348,9 @@ textarea {
   background-size: cover;
   background-position: center center;
   z-index: -1;
-  /*-webkit-filter: blur(10);*/ /* FIREFOX SUPPORT, FUCKING WHEN? */
+  -webkit-filter: blur(10px); /* Firefox support, fucking when? */
+  /* In the mean time, use this old method that causes lag: */
   filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'blur\'><feGaussianBlur stdDeviation=\'10\'/></filter></svg>#blur");
-  /* This has lag when scrolling past the banner. */
 }
 
 .board_g .boardBanner::after {
@@ -215,73 +373,13 @@ textarea {
   background-image: url('file:///E:/Pictures/2012%20Images/ISHYGDDT/1325371980670.jpg');
 }
 
-@media (max-width: 960px) {
-  .boardBanner {
-    font-size: 3rem;
-    padding: 75px 0;
-    box-shadow: inset 0 0 150px rgba(0,0,0,1);
-  }
-}
-
-/*
-.navLinks {
-  font-size: 0;
-  color: transparent;
-  line-height: 1;
-  width: 100%;
-  height: 2rem;
-  background-color: #3d3d3d;
-  text-align: center;
-}
-
-#index-last-refresh {
-  font-size: .75rem;
-  color: #e3e3e3;
+.board,
+.thread,
+.postContainer {
   position: relative;
-  display: block;
-  margin-top: .6rem !important;
 }
 
-#index-search {
-  display: block;
-  -moz-appearance: none;
-  font-family: inherit;
-  font-size: 1rem;
-  line-height: 1;
-  background: #fefefe;
-  border: 1px solid #ababab;
-  padding: .5rem !important;
-  color: #3d3d3d;
-  width: 12.5rem;
-  margin: -5rem auto 0 !important;
-  position: relative;
-  border-radius: 3px;
-  right: 100px;
-}
-
-#index-search::-moz-placeholder {
-  color: #ababab;
-}
-
-#index-search-clear::after {
-  content: 'Reply Count';
-  font-size: 1rem;
-  color: #fefefe;
-  background-color: #3d3d3d;
-  display: block;
-  width: 10rem;
-  border-radius: 3px;
-  position: relative;
-  text-align: left;
-  padding: .75rem 0 .75rem .75rem !important;
-  margin: -2.5rem auto 0 !important;
-  left: 100px;
-}
-*/
-
-.navLinks { display: none; }
-
-#custom-board-list::after,
+#header-bar::after,
 .board::after,
 .thread::after,
 .postContainer::after,
@@ -291,37 +389,6 @@ textarea {
   clear: both;
 }
 
-.board,
-.thread,
-.postContainer {
-  position: relative;
-}
-
-/*
-#delform {
-  margin: 3rem 0;
-}
-
-.board {
-  width: 75%;
-  margin: 0 auto;
-}
-
-.thread:not(:first-of-type)::before {
-  content: '';
-  display: block;
-  height: 1px;
-  background-image: linear-gradient(to left, rgba(227, 227, 227, 0), rgba(227, 227, 227, 1), rgba(227, 227, 227, 0));
-  width: 90%;
-  margin: 1rem auto;
-}
-
-.postContainer {
-  padding: 1rem !important;
-  position: relative;
-}
-*/
-
 .thread {
   padding: 2rem 0;
 }
@@ -330,74 +397,20 @@ textarea {
   background-color: #fafafa;
 }
 
-.thread .postContainer, .thread > .stub {
+.thread > .postContainer, .thread > .stub {
   width: 75%;
   margin: auto;
 }
 
 .post {
   padding: 1rem;
+  transition: box-shadow .25s;
 }
 
-#header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(61, 61, 61, 0);
-  transition: all .25s ease-in-out;
-  z-index: 50;
-}
-
-#header:hover {
-  background-color: rgba(61, 61, 61, .25);
-}
-
-.bannered:root #header {
-  position: fixed;
-  background-color: rgba(61, 61, 61, 1);
-  /*border-bottom: .5rem solid #fefefe;*/
-}
-
-.scrolling-down:root #header {
-  transform: translateY(-100%);
-}
-
-.scrolling-down:root #header:hover {
-  transform: translateY(0);
-}
-
-.scrolling-up.unbannered:root #header {
-  transform: translateY(0);
-}
-
-#board-list {
-  font-family: roboto, sans-serif;
-  font-weight: 300;
-  display: block;
-  width: 75%;
-  margin: auto !important;
-  line-height: 1;
-}
-
-#custom-board-list {
-  display: block;
-}
-
-#board-list a {
-  color: #fefefe !important;
-  display: block;
-  float: left;
-  padding: 1rem !important;
-  min-width: 3rem;
-  text-align: center;
-  text-shadow: 0 1px 1px rgba(0,0,0,.5);
-  transition: background-color .25s;
-}
-
-#board-list a:hover,
-#board-list .current {
-  background-color: rgba(0, 0, 0, .25);
+subject:not(:empty)::after {
+  content: ' by ';
+  font-weight: 400;
+  color: #999;
 }
 
 .postNum > a:first-child {
@@ -421,7 +434,7 @@ textarea {
 
 .fileThumb {
   float: left;
-  margin: .5rem !important;
+  margin: .5rem;
 }
 
 .quote {
@@ -511,12 +524,105 @@ textarea {
   opacity: 1;
 }
 
+.summary {
+  color: var(basicblack) !important;
+  border: 3px solid var(basicblack);
+  display: block;
+  text-align: center;
+  max-width: 30rem;
+  padding: 1rem;
+  margin: 1rem auto;
+  transition: all .25s;
+}
+
+.summary:hover {
+  color: var(basicwhite) !important;
+  background-color: var(basicblack);
+}
+
+.forwardlink {
+/*
+  text-decoration: underline !important;
+  -moz-text-decoration-style: dashed !important;
+*/
+  border-bottom: 1px dashed;
+}
+
+.backlink {
+  font-size: 0;
+  color: transparent;
+}
+
+.backlink::before {
+  content: '\f16a';
+  font-family: ionicons;
+  font-size: 1.1rem;
+  color: var(basicblack);
+  display: inline-block;
+  border: 0;
+}
+
+.deadlink {
+  text-decoration: line-through !important;
+}
+
+.inlined {
+  opacity: .75;
+}
+
+.backlink.inlined::before,
+.backlink.forwardlink::before {
+  content: '\f16b';
+}
+
+.thread .stub ~ * {
+  display: none;
+}
+
+.stub {
+  position: relative;
+}
+
+.stub > a:first-child {
+  color: #3d3d3d !important;
+}
+
+.stub .menu-button {
+  position: absolute;
+}
+
+.inline {
+  clear: both;
+  box-shadow: inset 1px 0 0 #e3e3e3;
+}
+
+.qphl {
+  box-shadow: inset 1px 0 0 #f1c40f;
+}
+
+.watcher-toggler::before {
+  font-family: ionicons;
+  font-size: 1.1rem;
+  color: var(basicblack) !important;
+  display: inline-block;
+}
+
+.fa-bookmark-o::before {
+  content: '\f198';
+}
+
+.fa-bookmark::before {
+  content: '\f199';
+}
+
+/* #header might have a different CSS menu that those of posts... */
+
 #menu {
   font-size: .75rem;
-  color: #3d3d3d;
   display: flex;
   flex-direction: column;
   position: absolute;
+  border: 1px solid #e3e3e3;
 }
 
 #menu.top {
@@ -536,26 +642,29 @@ textarea {
 }
 
 .entry {
-  background-color: #fafafa;
+  color: #3d3d3d;
+  background-color: #fefefe;
   cursor: pointer;
   padding: .25rem .5rem;
   position: relative;
   white-space: nowrap;
 }
 
+a.entry { color: #3d3d3d !important; }
+
 .entry:hover {
-  background-color: #f2f2f2;
+  background-color: #fafafa;
 }
 
 .entry.disabled {
   color: #999;
 }
 
-.has-submenu:after {
-  border-bottom: 4px solid transparent;
-  border-left: 6px solid;
-  border-top: 4px solid transparent;
-  content: '';
+.has-submenu::after {
+  content: '\f154';
+  font-family: ionicons;
+  font-size: .5rem;
+  color: var(basicblack);
   display: inline-block;
   margin: 4px;
   position: absolute;
@@ -570,6 +679,7 @@ textarea {
   display: flex;
   flex-direction: column;
   position: absolute;
+  border: 1px solid #e3e3e3;
 }
 
 .submenu.top {
@@ -592,201 +702,79 @@ textarea {
   margin: 0;
 }
 
-/* THIS HAS POTENTIAL, AW SHIT */
-#sidebar-toggle {
-  cursor: pointer;
-  position: absolute;
-  height: 3rem;
-  width: 3rem;
-  top: 0;
-  margin-left: -3rem !important;
-  transition: background-color .25s;
-  line-height: 1;
-  text-align: center;
+#unread-line {
+  border: 0;
+  margin: 0;
+  height: 1px;
+  background: #5f9654;
 }
 
-#sidebar-toggle:hover {
-  background-color: rgba(0, 0, 0, .25);
-}
-
-#sidebar-toggle::before {
-  content: '\f20e';
-  font-family: ionicons;
-  font-size: 3rem;
-  display: block;
-  color: #fefefe;
-  text-shadow: 0 1px 1px rgba(0,0,0,.5);
-}
-/*
-#sidebar-toggle::before {
-  content: '';
-  display: block;
-  height: 1.5rem;
-  width: 1.5rem;
-  background-image: linear-gradient(to bottom, transparent 0%, transparent 25%, #fefefe 25%, #fefefe 35%, transparent 35%, transparent 50%, #fefefe 50%, #fefefe 60%, transparent 60%, transparent 75%, #fefefe 75%, #fefefe 85%, transparent 85%, transparent 100%);
-  position: relative;
-  top: .75rem;
-  left: .75rem;
-}
-*/
-/*
-#sidebar-toggle {
-  cursor: pointer;
-  z-index: 10;
-}
-
-#sidebar-toggle::before {
-  content: '';
-  display: block;
-  position: fixed;
-  height: 1.5rem;
-  width: 1.5rem;
-  top: .75rem;
-  right: 13.5%;
-  background-image: linear-gradient(to bottom, transparent 0%, transparent 25%, #fefefe 25%, #fefefe 35%, transparent 35%, transparent 50%, #fefefe 50%, #fefefe 60%, transparent 60%, transparent 75%, #fefefe 75%, #fefefe 85%, transparent 85%, transparent 100%);
-  z-index: 10;
-}
-
-#sidebar-toggle::after {
-  content: '';
-  display: block;
-  position: fixed;
-  height: 3rem;
-  width: 3.25rem;
-  opacity: 0;
-  background: #000;
-  top: 0;
-  right: 12.5%;
-  transition: opacity .25s;
-}
-
-#sidebar-toggle:hover::after {
-  opacity: .25;
-}
-*/
-#updater > div:not(.move) { display: none; }
-
-#updater {
-  position: fixed;
-  top: 1rem !important;
-  right: 16% !important;
-  bottom: auto !important;
-  left: auto !important;
-  z-index: 40;
-  font-family: roboto;
-  font-weight: 300;
-  color: #fefefe;
-  line-height: 1;
-}
-
-#updater .new {
-  color: lime;
-}
-
-#update-timer {
-  display: block;
-  float: right;
-  width: 1.5rem;
-  text-align: right;
-}
-
-.forwardlink {
-/*
-  text-decoration: underline !important;
-  -moz-text-decoration-style: dashed !important;
-*/
-  border-bottom: 1px dashed;
-}
-
-.backlink {
-  font-size: 0;
-  color: transparent;
-}
-
-.backlink::before {
-  content: '\f11e';
-  font-family: ionicons;
-  font-size: 1rem;
-  color: #3d3d3d;
-  display: inline-block;
-}
-
-.deadlink {
-  text-decoration: line-through !important;
-}
-
-.inlined {
-  opacity: .75;
-}
-
-.thread .stub ~ * {
-  display: none;
-}
-
-.stub {
-  position: relative;
-}
-
-.stub > a:first-child {
-  color: #3d3d3d !important;
-}
-
-.stub .menu-button {
-  position: absolute;
-}
-
-.inline {
-  box-shadow: inset 1px 0 0 #e3e3e3;
+.deleted-post {
+  opacity: .5;
 }
 
 #qp {
   position: fixed;
-  background-color: rgba(254, 254, 254, .8);
-  border: 1px solid rgba(227, 227, 227, .8);
+  background-color: rgba(254, 254, 254, .9);
+  border: 1px solid rgba(227, 227, 227, .9);
+  z-index: 15;
 }
 
-.summary.sidedished {
-  display: block;
-  color: #3d3d3d !important;
-  font-weight: 700;
-  line-height: 50px;
-  max-width: 25%;
-  text-align: center;
-  border: 5px solid #3d3d3d;
-  margin: auto !important;
-  transition: color .25s, background-color .25s;
-}
-
-.summary.sidedished:hover {
-  color: #fefefe !important;
-  background-color: #3d3d3d;
-}
-/*
-#sidebar {
+#thread-watcher {
   position: fixed;
-  width: 30rem;
-  background-color: #3d3d3d;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  background-color: rgba(254, 254, 254, .9);
+  padding: .5rem;
 }
 
-.sidebar-inactive:root #sidebar {
-  transform: translateY(-100%);
-}
-
-.sidebar-active:root #sidebar {
-  transform: translateY(0);
-}
-*/
 #qr {
   position: fixed;
-  top: auto !important;
-  right: 1rem !important;
-  bottom: 1rem !important;
-  left: auto !important;
 }
 
-#qr > div:first-child { display: none; }
+#updater {
+  position: fixed;
+  top: 1rem !important;
+  right: 50% !important;
+  bottom: auto !important;
+  left: auto !important;
+  z-index: 15;
+  width: 10rem;
+  margin-right: -5rem;
+}
+
+#updater:not(:hover) > div:not(.move) {
+  display: none;
+}
+
+#updater .move {
+  font-family: roboto;
+  font-weight: 300;
+  color: var(basicwhite);
+  line-height: 1;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(0,0,0,.5);
+}
+
+#updater .new {
+  color: #5f9654;
+}
+
+/*
+ qr: '\f17d';
+ tw: '\f188';
+*/
+
+progress[value] {
+  position: fixed;
+  top: 48px;
+  width: 100%;
+  height: 2px;
+  -moz-appearance: none;
+  border: none;
+  background: none;
+}
+
+progress[value]::-moz-progress-bar { 
+  background: #5f9654;
+}
 
 }
