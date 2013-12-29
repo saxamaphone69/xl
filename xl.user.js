@@ -7,8 +7,7 @@
 
 (function() {
     var d = document,
-        doc = d.documentElement,
-        body = d.body;
+        doc = d.documentElement;
     var id = function(id) {
        return d.getElementById(id);
     };
@@ -28,6 +27,7 @@
     var chanXLoaded = function() {
         doc.classList.remove('chanx-loading');
     };
+    // this won't fire a thread though!
     
     /*
     var styleRemoval = function() {
@@ -45,6 +45,12 @@
             styles[i].remove();
         };
         
+        var scrollage = d.createElement('progress');
+        scrollage.id = 'scroll-progress';
+        scrollage.value = 0;
+        scrollage.max = 100;
+        d.body.appendChild(scrollage);
+
         var headerSticky = function() {
             var Y = window.pageYOffset;
             if (Y >= 496) {
@@ -54,6 +60,14 @@
             }
         };
         on(window, 'scroll', headerSticky);
+        
+        var progressScroll = function() {
+            var s = window.pageYOffset, dHeight = d.body.clientHeight, wHeight = window.innerHeight, scrollPercent, pos;
+            scrollPercent = (s / (dHeight - wHeight)) * 100;
+            pos = scrollPercent;
+            id('scroll-progress').value = pos;
+        };
+        on(window, 'scroll', progressScroll);
     };
     
     on(d, 'DOMContentLoaded', main);
