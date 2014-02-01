@@ -1,5 +1,5 @@
 #xl.css
-####*Sort of like Medium, but not as tight.*
+####*Sort of like [Medium](https://medium.com/), but not as tight.*
 
 Honestly, not very usable in its current state.
 
