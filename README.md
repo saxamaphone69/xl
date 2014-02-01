@@ -1,6 +1,8 @@
 #xl.css
 ####*Sort of like [Medium](https://medium.com/), but not as tight.*
 
+![xl screenshot](http://i.imgur.com/bOUhaLX.png)
+
 Honestly, not very usable in its current state.
 
 Again, you're going to have to block the default stylesheets using the method from collabstyle, and then you'll also need `xl.user.js` to add a pinch of rice.
