@@ -1,6 +1,11 @@
 #xl.css
 ####*Sort of like [Medium](https://medium.com/), but not as tight.*
 
+#JULY 2015 UPDATE
+Ever since Mayhem stopped working on 4chan X, I guess I gave up on this style. Pretty sure it uses all the old classes so it won't really work with ccd0's version and would require a bit of changing.
+
+I'll leave it here for archive's sake.
+
 ![xl screenshot](http://i.imgur.com/bOUhaLX.png)
 
 Honestly, not very usable in its current state.
