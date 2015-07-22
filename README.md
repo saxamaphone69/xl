@@ -4,9 +4,7 @@
 #JULY 2015 UPDATE
 Ever since Mayhem stopped working on 4chan X, I guess I gave up on this style. Pretty sure it uses all the old classes so it won't really work with ccd0's version and would require a bit of changing.
 
-I'll leave it here for archive's sake.
-
-![xl screenshot](http://i.imgur.com/bOUhaLX.png)
+I'll leave it here for archive's sake. However, a new version is being worked on.
 
 Honestly, not very usable in its current state.
 
@@ -14,13 +12,11 @@ Again, you're going to have to block the default stylesheets using the method fr
 
 ####Stuff You Need
 
-[Firefox Nightly](http://nightly.mozilla.org/) browser. I use CSS variables which __ARE NOT__ supported officially yet. I actually think you need to flip the switch on them in `about:config`. I'm also going to get rid of the `-moz` prefix on `border-box` cause that's also new in Nightly.
-
-Then, download [Ionicons](http://ionicons.com/) and then change the reference on Line 5 of the CSS to where you have it saved.
+Currently only Firefox is supported, as this userstyle uses CSS variables, which __ARE NOT__ supported officially yet.
 
 AdBlock Plus filters like this:
 
-(add-ons > adblock > options > filter preferences > custom filters tab)
+(add-ons > adblock plus > options > filter preferences > custom filters tab)
 
 ```
 *//s.4cdn.org/image/title/*
@@ -28,9 +24,3 @@ AdBlock Plus filters like this:
 *//s.4cdn.org/js/prettify/prettify.*.css
 *//pixel.quantserve.com/*
 ```
-
-You will also need [Mayhem's LATEST 4chan X version](https://github.com/MayhemYDG/4chan-x/wiki/4chan-X-LATEST).
-
-Also around line 370 you'll start seeing board specific headers. Just put `.board_g` or `.board_b` in a similar fashion to what is there and reference an image. (Find your picture, drag it into a new Firefox tab and copy the URL in the address bar between the quotes.
-
-Chances are you'll need my specific settings. One day I'll support all options, I'm sure. But I won't provide those yet, that way if something doesn't work, just tell me and I'll know what I still need to do.
