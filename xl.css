@@ -1,0 +1,917 @@
+/**
+* 
+* xl - a self-centered 4chan userstyle
+* 
+* created on: July 15th, 2015
+* 4chan X version: ccd0 1.11.5.2 / https://github.com/ccd0/4chan-x
+* created by: @saxamaphone69
+* coding style: https://github.com/necolas/idiomatic-css
+* 
+* in an attempt to make the style as user-friendly as possible,
+* i will comment most of the css to explain what it all does
+*
+*/
+
+/**
+* first up: web fonts! no longer do userstyles need you to go
+* off and download fonts. we can just serve them up with google fonts!
+* and of course, if you don't like roboto, besides you possibly having
+* a mental issue, you can just pick one on google fonts that you like
+* and change it out! we keep the @import rule outside of the @document
+* one because stylish doesn't let us
+* 
+* if you do, change the declaration on line 63
+*
+* we also use an icon font
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500|Source+Code+Pro|Material+Icons');
+@import url('https://s.4cdn.org/css/flags.613.css');
+
+@-moz-document domain('boards.4chan.org') {
+
+/**
+* we get rid of ads in their own declaration to avoid polluting the
+* style with `!important` (and why aren't you using adblock or a
+* 4chan pass?)
+*/
+
+.center { display: none !important; }
+
+/**
+* and then we get rid off all the other stuff that isn't needed
+* 
+* 1) elements that are intended for the mobile version
+* 2) luckily a bunch of elements have the desktop class, and we
+*    don't actually need them
+* 3) all horizontal rules, except for the unread line one
+* 4) ccd0 caters for retards who can't manage to start a thread
+* 5) hide the original post form (use the qr)
+* 6) hide the checkboxes from posts (use the menu)
+* 7) copyright information
+* 8) ad pleas
+* 9) no more sexy hero images from me, sorry
+*/
+
+.mobile, /* 1) */
+.desktop:not(.postInfo):not(.postNum), /* 2) */
+hr:not(#unread-line), /* 3) */
+.qr-link-container, /* 4) */
+.postForm, /* 5) */
+.postInfo > input[type='checkbox'], /* 6) */
+.absBotText, /* 7) */
+.ad-plea, /* 8) */
+.boardBanner /* 9) */ {
+display: none;
+}
+
+/**
+* i'll let paul irish explain this:
+* http://www.paulirish.com/2012/box-sizing-border-box-ftw/
+*/
+
+*, ::before, ::after { box-sizing: border-box; }
+
+/**
+* native css variables! yay! firefox only though (they were enabled,
+* then disabled in chrome for performance reasons i think). anywho,
+* we use the material design colour palette here because it's nice.
+* pity we can't alter the colours like in scss though...
+*/
+
+:root {
+--base-primary: #673ab7;
+--selection: #b3d4fc;
+--base-black: #212121;
+--base-white: #fafafa;
+--base-blue: #2196f3;
+--base-blue-dark: #1976d2;
+--base-red: #f44336;
+--base-gray: #9e9e9e;
+--base-gray-dark: #616161;
+--base-green: #388e3c;
+--base-orange: #ff9800;
+}
+
+/**
+* change the colour of selected elements too. 2 separate declarations
+* cause mozilla haven't unprefixed it yet
+* https://bugzilla.mozilla.org/show_bug.cgi?id=509958
+*/
+
+::-moz-selection { background: var(--selection); }
+
+::selection { background: #b3d4fc; }
+
+/**
+* it is bad UX to give focused elements no visual feedback if they
+* are tabbed (not to mention against the law), but i HIGHLY doubt
+* someone with visual impairments would be using a userstyle
+*/
+
+:focus { outline: 0; }
+
+/**
+* all the good looks start here! okay, so we want an actual font size
+* and not that 10px crap everyone on /g/ has. give it some space with a
+* reasonable line-height, good contrast, better rendering, always show a
+* scrollbar, and make long words break
+*/
+
+:root {
+font: 400 1rem/1.6 roboto, source sans, open sans, helvetica, arial, sans-serif;
+color: var(--base-black);
+background-color: var(--base-white);
+text-rendering: optimizeLegibility;
+overflow-y: scroll;
+word-wrap: break-word;
+overflow-wrap: break-word;
+}
+
+/**
+* make all links a nice blue and remove the underline, unless it happens
+* to be a link
+*/
+
+a {
+color: var(--base-blue);
+text-decoration: none;
+transition: color .25s;
+}
+
+a:hover {
+color: var(--base-blue-dark);
+}
+
+.linkify { border-bottom: 1px solid; }
+
+/**
+* sometimes 4chan X uses a warning class, but generally we style those
+* later on. we pop it up here to avoid the colour being rewritten
+*/
+
+.warning { color: var(--base-red); }
+
+/**
+* remove the default body margin, but add some to compensate for
+* the header
+*/
+
+body { margin: 0; margin-top: 5rem; }
+
+/**
+* address the default `font-weight: bolder` set in browsers. plus we
+* use a different `font-weight` in our web font anyway
+*/
+
+b, strong, th,
+h1, h2, h3, h4, h5, h6,
+.current, .name, .subject { font-weight: 500; }
+
+/**
+* fixes spacing of thumbnails and expanded media
+*/
+
+audio, img, video { vertical-align: middle; }
+
+/**
+* corrects colour and font not being inherited, along with different margins
+* across different browsers
+*/
+
+button,
+input,
+select,
+textarea {
+font: inherit;
+color: inherit;
+margin: 0;
+}
+
+/**
+* improve usability...
+*/
+
+button, 
+input[type='button'],
+input[type='submit'],
+label {
+cursor: pointer;
+}
+
+/**
+* ...and then reset it for disabled elements
+*/
+
+button[disabled],
+input[disabled] {
+cursor: default;
+}
+
+/**
+* remove inner padding and border in firefox
+*/
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+padding: 0;
+border: 0;
+}
+
+/**
+* only allow textareas to be vertically resized
+*/
+
+textarea { resize: vertical; }
+
+/**
+* placeholder text in firefox has an opacity
+*/
+
+::-moz-placeholder { opacity: 1; color: var(--base-gray); }
+
+/**
+* [spoiler] tags
+*/
+
+s {
+color: var(--base-black);
+background: var(--base-black);
+text-decoration: none;
+transition: color .25s;
+}
+
+s:hover {
+color: var(--base-white);
+}
+
+/**
+* [pre] tags (/g/ master race)
+*/
+
+pre, code, kbd, .postertrip {
+font-family: source code pro, inconsolata, monospace;
+}
+
+.prettyprinted {
+font-size: .75rem;
+color: #111;
+background-color: #fff;
+white-space: pre-wrap;
+word-spacing: normal;
+word-break: normal;
+-moz-tab-size: 4;
+tab-size: 4;
+-webkit-hyphens: none;
+-moz-hyphens: none;
+hyphens: none;
+display: inline-block;
+overflow: auto;
+padding: .5rem;
+max-width: 100%;
+}
+
+/**
+* prettyprint theme:
+* http://jmblog.github.io/color-themes-for-google-code-prettify/hemisu-light/
+*/
+
+.prettyprinted .str,
+.prettyprinted .kwd,
+.prettyprinted .atn { color: #739200; }
+.prettyprinted .com { color: #999; }
+.prettyprinted .typ,
+.prettyprinted .atv { color: #f05; }
+.prettyprinted .lit,
+.prettyprinted .fun { color: #538192; }
+
+/**
+* a modern, micro clearfix, as per:
+* http://cssmojo.com/latest_new_clearfix_so_far/
+*/
+
+/*
+element::after {
+content: '';
+display: table
+clear: both;
+}
+*/
+
+/**
+* >implying
+*/
+
+.quote { color: var(--base-green); }
+
+/**
+* 4chan X header, lots of magic here
+*/
+
+#header-bar {
+position: fixed;
+top: 0; right: 0; left: 0;
+z-index: 10;
+height: 4rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0 2rem;
+color: var(--base-white);
+background-color: var(--base-primary);
+line-height: 1;
+}
+
+#header-bar a {
+color: var(--base-white);
+}
+
+#board-list {
+flex: 1;
+}
+
+#board-list a {
+  text-transform: uppercase;
+display: inline-block;
+padding: 1.5rem 1rem;
+}
+
+#board-list .current {
+box-shadow: inset 0 -3px 0 var(--base-orange);
+}
+
+/**
+* remove unwanted boards from the full board list.
+* follow the same :not([href=$='/BOARD/']) template (in other words,
+* the ones you want to keep are listed here, and all others
+* are removed)
+*/
+
+.boardList span,
+#full-board-list a:not([href$='/g/']):not([href$='/v/']):not([href$='/vg/']):not([href$='/r9k/']):not([href$='/fa/']):not([href$='/fit/']):not([href$='/pol/']):not([href='javascript:;']) {
+display: none;
+}
+
+#shortcuts {
+flex: 0;
+}
+  
+  #updater,
+  #thread-stats {
+    font-size: .75rem;
+  }
+  
+  #update-status.new {
+    color: lime;
+  }
+  
+  .shortcut {
+    font-size: 0;
+  }
+
+.fa-eye::after,
+.expand-all-shortcut::after,
+.contract-all-shortcut::after,
+.qr-shortcut::after,
+.fa-picture-o::after,
+.fa-wrench::after,
+  .menu-button::after{
+font-family: 'Material Icons';
+font-weight: normal;
+font-style: normal;
+font-size: 1.5rem;
+display: inline-block;
+width: 1em;
+height: 1em;
+line-height: 1;
+text-transform: none;
+letter-spacing: normal;
+word-wrap: normal;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+  
+  .fa-eye::after {
+    content: 'visibility';
+  }
+  
+  .fa-picture-o::after {
+    content: 'photo';
+  }
+  
+  .qr-shortcut::after {
+    content: 'comment';
+  }
+  
+  .expand-all-shortcut::after {
+    content: 'fullscreen';
+  }
+  
+  .contract-all-shortcut::after {
+    content: 'fullscreen exit';
+  }
+  
+  .fa-wrench::after {
+    content: 'settings';
+  }
+  
+  .menu-button::after {
+    content: 'more_vert';
+  }
+
+#scroll-marker {
+top: 100%; right: 0; left: 0;
+position: absolute;
+pointer-events: none;
+height: 1rem;
+
+}
+
+/**
+* notifications, styled as toasts. this is the code for it:
+*/
+
+/*
+document.dispatchEvent(new CustomEvent('CreateNotification', {
+detail: {
+type: 'success', // info, warning, error
+content: 'TEXT HERE',
+lifetime: 0
+}
+}));
+*/
+
+#notifications {
+position: absolute;
+top: 100%; right: 0; left: 0;
+}
+
+.notification {
+font-weight: 300;
+color: var(--base-white);
+border-radius: 3px;
+margin: .1rem auto;
+width: 50rem;
+max-width: 100%;
+position: relative;
+transition: opacity .25s;
+}
+
+.notification.error { background-color: var(--base-red); }
+.notification.warning { background-color: var(--base-orange); }
+.notification.success { background-color: var(--base-green); }
+.notification.info { background-color: var(--base-blue); }
+
+.notification a { color: var(--base-white); }
+
+.notification > .close::before {
+content: 'DISMISS';
+font-size: .75rem;
+position: absolute;
+top: 1rem; right: 1.5rem;
+}
+
+.message {
+padding: 1rem 1.5rem;
+max-height: 20rem;
+width: 100%;
+overflow: auto;
+}
+
+.navLinks .indexlink,
+.navLinks .cataloglink,
+.navLinks .archlistlink,
+.navLinks .bottomlink,
+.navLinks #index-mode,
+.navLinks #index-size {
+display: none;
+}
+
+.postContainer {
+position: relative;
+}
+
+.postContainer::after {
+content: '';
+display: table;
+clear: both;
+}
+
+.post::after {
+content: '';
+display: table;
+clear: both;
+}
+  
+  .thread {
+    margin: 0 1rem;
+  }
+
+/**
+* any styling gets applied to the .post, as
+* opposed to .postContainer because it has more
+* classes added to it (filters, highlights)
+*/
+
+.post {
+padding: 1rem;
+background: #fff;
+border-radius: 3px;
+box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+margin-top: 1rem;
+transition: all .25s;
+}
+
+
+/**
+* so looks like media queries don't work 100% with
+* stylish. typical. make do with what i can, however
+*/
+@media only screen and (max-width: 720px) {
+.post {
+border-top: 1px solid var(--base-gray);
+margin: 0;
+box-shadow: none;
+border-radius: 0;
+}
+}
+
+/**
+* remove the default margin, but still make the text
+* indent from the post information
+*/
+
+blockquote {
+margin: .5rem 0 0 .5rem;
+}
+
+.fileThumb {
+float: left;
+margin: .5rem;
+}
+
+.fileText-original,
+.fnswitch:hover > .fntrunc,
+.fnswitch:not(:hover) > .fnfull,
+.expanded-image > .post > .file > .fileThumb > video[data-md5],
+.expanded-image > .post > .file > .fileThumb > img[data-md5] {
+display: none;
+}
+
+.dateTime, .page-num, .fileText { color: var(--base-gray); }
+
+#qr {
+display: none;
+}
+
+/**
+* if the post has a subject, make it read a bit better
+* by adding 'subject by anon'
+*/
+
+.subject:not(:empty)::after {
+content: ' by ';
+color: var(--base-gray);
+font-weight: 400;
+}
+
+/**
+* convert 'No.'69 into #69
+*/
+
+.postNum > a:first-child {
+font-size: 0;
+}
+
+.postNum > a:first-child::before {
+content: '#';
+font-size: 1rem;
+}
+
+/**
+* turn the reply link into a view button
+*/
+
+.postNum > span:last-child {
+font-size: 0;
+}
+
+.replylink::after {
+content: 'View';
+font-size: .9rem;
+font-weight: 500;
+text-transform: uppercase;
+color: var(--base-white);
+padding: .25rem .75rem;
+display: inline-block;
+vertical-align: bottom;
+border-radius: 2px;
+background: var(--base-primary);
+box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+  
+  /**
+   * thread summary (posts and media omitted)
+   */
+  
+  .summary {
+    display: block;
+    background-color: white;
+    color: black;
+    padding: .5rem 0;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    margin-top: -5px;
+    border-top: 1px solid gray;
+    border-radius: 0 0 3px 3px;
+  }
+
+/**
+* 4chan X settings
+*/
+
+#overlay {
+background-color: rgba(0, 0, 0, .5);
+position: fixed;
+z-index: 11;
+top: 0; right: 0; bottom: 0; left: 0;
+}
+
+#fourchanx-settings {
+position: fixed;
+z-index: 12;
+top: 50%; left: 50%;
+transform: translate(-50%, -50%);
+background-color: var(--base-white);
+border-radius: 3px;
+max-width: 90%;
+max-height: 90%;
+width: 75rem;
+height: 60rem;
+padding-bottom: 1rem;
+margin: auto;
+display: flex;
+flex-direction: column;
+box-shadow: 0 2px 5px rgba(0, 0, 0, .16),
+0 2px 10px rgba(0, 0, 0, .12);
+}
+
+#fourchanx-settings > nav {
+padding: 1rem;
+display: flex;
+}
+
+.section-container {
+flex: 1;
+overflow: auto;
+padding: 0 1rem;
+}
+
+#fourchanx-settings fieldset {
+padding: 1rem;
+border: 0;
+border-bottom: 1px solid var(--base-gray);
+margin: .5rem 0;
+}
+
+#fourchanx-settings fieldset:first-of-type {
+border-bottom: 0;
+}
+
+#fourchanx-settings fieldset > legend {
+font-weight: 500;
+padding: 0;
+}
+
+#fourchanx-settings label {
+position: relative;
+padding-left: 2rem;
+display: inline-block;
+}
+
+#fourchanx-settings label input[type='checkbox'] {
+visibility: hidden;
+}
+
+#fourchanx-settings div[data-checked='false'] > label::before {
+content: '';
+position: absolute;
+top: 0; left: 0;
+width: 18px; height: 18px;
+border: 2px solid #5a5a5a;
+border-radius: 1px;
+margin-top: 2px;
+transition: all .25s;
+}
+
+#fourchanx-settings div[data-checked='true'] > label::before {
+/*
+content: '';
+position: absolute;
+top: -4px; left: -3px;
+width: 12px; height: 12px;
+border: 2px solid;
+border-color: transparent red red transparent;
+margin-top: 2px;
+transform: rotate(40deg);
+transform-origin: 100% 100%;
+transition: all .25s;
+*/
+content: '';
+position: absolute;
+top: -4px;
+left: -3px;
+width: 12px;
+height: 22px;
+border-width: 2px;
+border-style: solid;
+border-color: transparent #26A69A #26A69A transparent;
+transform: rotate(40deg);
+transform-origin: 100% 100% 0px;
+border-radius: 1px;
+margin-top: 2px;
+transition: all .25s;
+}
+
+#fourchanx-settings .description {
+color: var(--base-gray-dark);
+}
+
+#fourchanx-settings .suboption-list {
+margin-left: 1rem;
+}
+
+#fourchanx-settings code,
+#fourchanx-settings kbd {
+background-color: #fff;
+padding: .1rem;
+border-radius: 3px;
+border: 1px solid var(--base-gray);
+}
+
+#fourchanx-settings textarea {
+font-family: source sans pro, monospace;
+width: 100%;
+}
+
+/**
+* ccd0 4chan X doesn't add unscroll to the body,
+* meaning you can awkwardly scroll when the settings
+* are open.
+.unscroll {
+overflow: hidden;
+}
+*/
+
+#qp {
+position: fixed;
+}
+
+.post:target { background: pink; }
+.qphl { background: orange; }
+  
+  /**
+   * menus
+   */
+  
+  .menu-button {
+    position: relative;
+  }
+  
+  .post .menu-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    opacity: 0;
+    will-change: opacity;
+    transition: opacity .25s;
+    color: var(--base-black);
+  }
+  
+  .post:hover .menu-button {
+    opacity: 1;
+  }
+  
+  #menu {
+    position: fixed;
+    z-index: 10;
+    font-size: .9rem;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    padding: .5rem 0;
+    min-width: 10rem;
+  }
+  
+  #menu .entry {
+    color: black;
+    display: block;
+    width: 100%;
+    padding: .5rem 1rem;
+    transition: background-color .25s;
+  }
+  
+  #menu .entry:hover {
+    background-color: #eee;
+  }
+  
+  #menu .submenu {
+    position: absolute;
+    left: 100%;
+    display: none;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+    padding: .5rem 0;
+    min-width: 10rem;
+  }
+  
+  #menu .focused > .submenu {
+    display: block;
+  }
+  
+  /**
+   * gallery mode. first we want to cover the whole page,
+   */
+  
+  #a-gallery {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, .75);
+    z-index: 15;
+    top: 0; right: 0; bottom: 0; left: 0;
+  }
+  
+  /* then where the selected image is displayed, */
+  
+  .gal-viewport {
+    flex: 1 100%;
+    order: 1;
+    position: relative;
+    display: flex;
+    top: 0; right: 0; bottom: 0; right: 0;
+  }
+  
+  .gal-image {
+    margin: auto;
+  }
+  
+  .gal-image img {
+    max-width: 100%;
+    max-height: 75vh;
+  }
+  
+  a.gal-name {
+    color: white;
+    text-align: center;
+    position: absolute;
+    left: 0; bottom: 1rem; right: 0;
+  }
+  
+  .gal-count {
+    color: white;
+    text-align: right;
+    position: absolute;
+    top: 1rem; right: 3rem; left: auto;
+  }
+  
+  .gal-buttons, .gal-prev, .gal-next { display: none; }
+  
+  /* and then the thumbnails */
+  
+  .gal-thumbnails {
+    display: flex;
+    flex: 1 10rem;
+    overflow: hidden;
+    order: 2;
+    position: relative;
+    text-align: center;
+  }
+  
+  .gal-thumbnails:hover {
+    flex: 1 calc(10rem + 17px);
+    overflow-x: scroll; /* Windows 8 scrollbar is 17px */
+  }
+  
+  .gal-thumb {
+    margin: 0 1rem;
+    align-self: center;
+    display: inline-block;
+  }
+  
+  .gal-thumb img {
+    max-width: 7rem;
+    max-height: 7rem;
+    width: auto;
+    height: auto;
+  }
+  
+  /* select image's thumbnail */
+  
+  .gal-highlight {
+    border: 1px solid orange;
+  }
+
+}
