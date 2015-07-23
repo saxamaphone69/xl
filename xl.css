@@ -91,6 +91,7 @@ display: none;
 --base-gray-dark: #616161;
 --base-green: #388e3c;
 --base-orange: #ff9800;
+--base-orange-very-light: #ffe0b2;
 }
 
 /**
@@ -327,7 +328,7 @@ color: var(--base-white);
 }
 
 #board-list {
-flex: 1;
+flex: 1 1 auto;
 }
 
 #board-list a {
@@ -353,7 +354,7 @@ display: none;
 }
 
 #shortcuts {
-flex: 0;
+  flex: 0 0 auto;
 }
   
   #updater,
@@ -506,6 +507,14 @@ clear: both;
   .thread {
     margin: 0 1rem;
   }
+  
+  #unread-line {
+    border: 0;
+    height: 1px;
+    background: var(--base-green);
+    display: block;
+    margin: 1rem 0;
+  }
 
 /**
 * any styling gets applied to the .post, as
@@ -557,12 +566,155 @@ margin: .5rem;
 .expanded-image > .post > .file > .fileThumb > img[data-md5] {
 display: none;
 }
+  
+  :root.fit-width .full-image {
+  max-width: 100%;
+}
+:root.gecko.fit-width .full-image {
+  width: 100%;
+}
+  
+  .fileText a {
+    unicode-bidi: -webkit-isolate;
+    unicode-bidi:    -moz-isolate;
+    unicode-bidi:          isolate;
+  }
 
 .dateTime, .page-num, .fileText { color: var(--base-gray); }
 
-#qr {
-display: none;
+  /**
+   * quick reply
+   */
+  
+  #qr {
+    position: fixed;
+    z-index: 11;
+    min-width: 20rem;
+    padding: 1rem;
+    border-radius: 3px;
+    background-color: #fafafa;
+    top: -100% !important;
+    transition: top .25s;
+  }
+  
+  #qr.focus {
+    top: 4rem !important;
+  }
+  
+  #qr > .move,
+  #qr #file-n-submit:not(.has-file) #qr-filerm {
+    display: none;
+  }
+  
+  /* temp */
+  .captcha-counter,
+  #dump-list-container {
+    display: none;
+  }
+  
+  #qr input[type='file'] {
+    visibility: hidden;
+    position: absolute;
+  }
+  
+  #qr .persona {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  #qr .persona .field {
+    flex: 1;
+    margin-right: .5rem;
+  }
+  
+  #qr .persona .field:last-of-type {
+    margin-right: 0;
+  }
+  
+  #qr .textarea textarea {
+    min-width: 100%;
+    margin-top: .5rem;
+  }
+  
+  #qr .field {
+    color: black;
+    background: none;
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid blue;
+  }
+  
+  #qr .captcha-container > div > div {
+    margin: .5rem auto;
+  }
+  
+  #qr #qr-file-button {
+    font-size: .9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: white;
+    padding: .25rem .75rem;
+    border: 0;
+    width: 15%;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 3px;
+    background: purple;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  }
+  
+  #qr input[type='submit'] {
+    font-size: .9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: white;
+    padding: .25rem .75rem;
+    border: 0;
+    width: 25%;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 3px;
+    background: purple;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  }
+  /*
+  #file-n-submit {
+  display: flex;
+  align-items: stretch;
+  height: 25px;
+  margin-top: 1px;
 }
+
+#qr-filename-container {
+  flex: 1 1 auto;
+  width: 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 1px;
+}
+input#qr-filename {
+  border: none !important;
+  background: none !important;
+  outline: none;
+}
+#qr #qr-filename,
+#qr #file-n-submit.has-file #qr-no-file {
+  display: none;
+}
+#qr #qr-no-file,
+#qr #file-n-submit.has-file #qr-filename {
+  flex: 1 1 auto;
+  display: inline-block;
+  padding: 0;
+  padding-left: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#qr-no-file {
+  color: #AAA;
+}
+  */
 
 /**
 * if the post has a subject, make it read a bit better
@@ -769,7 +921,30 @@ position: fixed;
 }
 
 .post:target { background: pink; }
-.qphl { background: orange; }
+.qphl { background: var(--base-orange-very-light); }
+  
+  .yourPost .post {
+    background-color: #ffebee;
+  }
+  
+  .video-file .fileThumb {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .video-file:not(.expanded-image) .fileThumb::after {
+    content: 'play_arrow';
+    font: 3em/1 'material icons';
+    color: #fefefe;
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(rgba(61, 61, 61, 0), rgba(61, 61, 61, .75));
+  }
   
   /**
    * menus
@@ -912,6 +1087,67 @@ position: fixed;
   
   .gal-highlight {
     border: 1px solid orange;
+  }
+  
+  /**
+   * pages
+   */
+  
+  .pages.cataloglink {
+    display: none;
+  }
+  
+  .pagelist {
+    display: flex;
+    margin-top: 3rem;
+  }
+  
+  .pagelist .prev,
+  .pagelist .next {
+    width: 15%;
+  }
+  
+  .pagelist button {
+    width: 100%;
+    padding: 0;
+    border: 0;
+    margin: 0;
+  }
+  
+  .pagelist .pages:not(.cataloglink) {
+    font-size: 0;
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+  }
+  
+  .pagelist .pages a,
+  .pagelist .pages strong {
+    font-size: 1rem;
+    display: block;
+    flex: 1 1 auto;
+    text-align: center;
+  }
+  
+  /**
+   * user ids (FORCED WHEN)
+   */
+  
+  .posteruid {
+    font-size: 0;
+  }
+  
+  .posteruid .painted {
+    font-size: 1rem;
+    padding: .1rem .5rem;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  :root.index-loading .navLinks,
+  :root.index-loading .board,
+  :root.index-loading .pagelist {
+    display: none;
   }
 
 }
