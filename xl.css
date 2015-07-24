@@ -321,11 +321,17 @@ padding: 0 2rem;
 color: var(--base-white);
 background-color: var(--base-primary);
 line-height: 1;
+  transition: transform .25s;
 }
+  
+  #header-bar.autohide {
+    transform: translateY(-100%);
+  }
 
 #header-bar a {
 color: var(--base-white);
 }
+
 
 #board-list {
 flex: 1 1 auto;
@@ -376,7 +382,7 @@ display: none;
 .qr-shortcut::after,
 .fa-picture-o::after,
 .fa-wrench::after,
-  .menu-button::after{
+  .shortcut .menu-button::after{
 font-family: 'Material Icons';
 font-weight: normal;
 font-style: normal;
@@ -419,6 +425,22 @@ word-wrap: normal;
   .menu-button::after {
     content: 'more_vert';
   }
+  
+  .post .menu-button::after {
+font-family: 'Material Icons';
+font-weight: normal;
+font-style: normal;
+font-size: .9rem;
+display: inline-block;
+width: 1em;
+height: 1em;
+line-height: 1;
+text-transform: none;
+letter-spacing: normal;
+word-wrap: normal;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
 
 #scroll-marker {
 top: 100%; right: 0; left: 0;
@@ -505,7 +527,8 @@ clear: both;
 }
   
   .thread {
-    margin: 0 1rem;
+    max-width: 75%;
+    margin: 1rem auto;
   }
   
   #unread-line {
@@ -581,6 +604,28 @@ display: none;
   }
 
 .dateTime, .page-num, .fileText { color: var(--base-gray); }
+  
+  .file {
+    position: relative;
+  }
+  
+  .fileText {
+    font-size: .9rem;
+    position: absolute;
+    text-align: center;
+    color: #fafafa;
+    background-color: rgba(97, 97, 97, .9);
+    z-index: 2;
+    display: inline-block;
+    padding: .5rem;
+    border-radius: 2px;
+    top: -1.5rem; left: 0;
+    display: none;
+  }
+  
+  .file:hover .fileText {
+    display: block;
+  }
 
   /**
    * quick reply
@@ -918,6 +963,7 @@ overflow: hidden;
 
 #qp {
 position: fixed;
+  z-index: 12;
 }
 
 .post:target { background: pink; }
@@ -956,15 +1002,21 @@ position: fixed;
   
   .post .menu-button {
     position: absolute;
+    z-index: 11;
     top: 1rem;
     right: 1rem;
     opacity: 0;
-    will-change: opacity;
+    /*will-change: opacity;*/
     transition: opacity .25s;
+    font-size: .75rem;
     color: var(--base-black);
   }
   
   .post:hover .menu-button {
+    opacity: 1;
+  }
+  
+  .menu-button.active {
     opacity: 1;
   }
   
@@ -976,7 +1028,7 @@ position: fixed;
     border-radius: 3px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
     padding: .5rem 0;
-    min-width: 10rem;
+    min-width: 15rem;
   }
   
   #menu .entry {
@@ -985,6 +1037,7 @@ position: fixed;
     width: 100%;
     padding: .5rem 1rem;
     transition: background-color .25s;
+    cursor: pointer;
   }
   
   #menu .entry:hover {
@@ -999,7 +1052,7 @@ position: fixed;
     border-radius: 3px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
     padding: .5rem 0;
-    min-width: 10rem;
+    min-width: 15rem;
   }
   
   #menu .focused > .submenu {
@@ -1149,5 +1202,91 @@ position: fixed;
   :root.index-loading .pagelist {
     display: none;
   }
+  
+  /**
+   * when a post is inlined, make the backlink for it
+   * a little opaque to distinguish it
+   */
+  
+  .inlined {
+    opacity: .75;
+  }
+  
+  /**
+   * when multiple quotes reside in the same post,
+   * be able to determine exactly which quote is being
+   * referenced with an underline and colour change
+   */
+  
+  .forwardlink {
+    color: #3f51b5;
+    border-bottom: 1px dashed;
+  }
+  
+  #thread-watcher {
+    position: fixed;
+  }
+  
+  .container:not(:empty) {
+    display: block;
+    font-size: .75rem;
+    color: var(--base-gray);
+    margin-left: 2rem;
+  }
+  
+  .container:not(:empty)::before {
+    content: 'quoted by ';
+  }
+  
+  .container:not(:empty)::after {
+    content: '.';
+  }
+  
+  .container:not(:empty) .backlink:not(:only-of-type):not(:last-of-type)::after {
+    content: ', ';
+    color: var(--base-gray);
+  }
+  
+  .container:not(:empty) .backlink:not(:only-of-type):last-of-type::before {
+    content: 'and ';
+    color: var(--base-gray);
+  }
+  
+  /**
+   * custom drop down. atm it is not very
+   * material
+   */
+  
+  .xl-select {
+    box-sizing: content-box;
+		position: relative;
+		cursor: pointer;
+		overflow: hidden;
+    display: inline-block;
+    height: 1.6rem;
+    width: 7rem;
+    background-color: var(--base-black);
+    color: var(--base-white);
+	}
+  
+  .xl-select--options {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+  }
+  
+  .xl-select:active .xl-select--item {
+		transform: scale(.9);
+	}
+  
+	.xl-select--item {
+		transform: translateY(0);
+		transition: transform .1s;
+	}
+  
+	.xl-select--item:not(:first-child) {
+		transform: translateY(0);
+	}
 
 }
