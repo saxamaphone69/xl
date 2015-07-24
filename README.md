@@ -6,6 +6,8 @@ Ever since Mayhem stopped working on 4chan X, I guess I gave up on this style. P
 
 I'll leave it here for archive's sake. However, a new version is being worked on.
 
+![Preview of xl](screenshot.png)
+
 Honestly, not very usable in its current state.
 
 Again, you're going to have to block the default stylesheets using the method from collabstyle, and then you'll also need `xl.user.js` to add a pinch of rice.
