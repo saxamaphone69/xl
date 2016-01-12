@@ -26,3 +26,6 @@ AdBlock Plus filters like this:
 *//s.4cdn.org/js/prettify/prettify.*.css
 *//pixel.quantserve.com/*
 ```
+
+#JANUARY 2016 UPDATE
+After upgrading to Windows 10 last year, I decided to give up on Firefox and move to Chrome as my main browser of choice. So, I had to update `xl.css` accordingly. Still not complete. Everytime I start working on it, I either want to create a whole new style again (which I am) or just lose interest straight away because at the moment, it works for me. Ideally I would like to support all 4chan X features, and also have both Firefox and Chrome support, as was my original goal with my userstyles from *2009*. God damn, 6 years of this shit?
